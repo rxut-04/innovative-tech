@@ -70,7 +70,7 @@ export default function About() {
           >
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-violet-600/10 border border-violet-200 dark:border-violet-800/30">
               <Image
-                src="/placeholder.svg?height=600&width=600"
+                src="/images/aboutus1.jpg"
                 width={600}
                 height={600}
                 alt="Our Team"
