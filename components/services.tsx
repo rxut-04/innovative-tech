@@ -172,19 +172,30 @@ export default function Services() {
 
         <Tabs defaultValue="web-development" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex justify-center mb-12">
-            <TabsList className="grid grid-cols-3 md:grid-cols-6 p-1 bg-violet-100/50 dark:bg-violet-900/10">
+            <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2 p-2 bg-transparent">
               {services.map((service) => (
                 <TabsTrigger
                   key={service.id}
                   value={service.id}
-                  className="data-[state=active]:bg-white dark:data-[state=active]:bg-violet-950/50 data-[state=active]:text-violet-700 dark:data-[state=active]:text-violet-300 data-[state=active]:shadow-sm"
+                  className="relative px-3 py-2 transition-all duration-300 data-[state=active]:text-violet-600 dark:data-[state=active]:text-violet-400 data-[state=active]:bg-violet-50 dark:data-[state=active]:bg-violet-950/30 rounded-lg hover:bg-violet-50 dark:hover:bg-violet-950/20"
                 >
-                  <div className="flex flex-col items-center py-1">
-                    <div className="hidden md:block mb-1">
-                      {React.cloneElement(service.icon, { className: "h-5 w-5" })}
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg bg-violet-100/50 dark:bg-violet-900/20">
+                      {React.cloneElement(service.icon, { 
+                        className: "h-5 w-5 text-violet-600 dark:text-violet-400" 
+                      })}
                     </div>
-                    <span className="text-xs md:text-sm">{service.title}</span>
+                    <span className="text-xs md:text-sm font-medium">{service.title}</span>
                   </div>
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-violet-600 dark:bg-violet-400 rounded-full"
+                    initial={false}
+                    animate={{
+                      width: activeTab === service.id ? "100%" : "0%",
+                      opacity: activeTab === service.id ? 1 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -233,15 +244,16 @@ export default function Services() {
                         ))}
                       </div>
 
-                      <div className="md:hidden relative rounded-2xl overflow-hidden shadow-xl shadow-violet-600/10 border border-violet-200 dark:border-violet-800/30">
-                        <Image
-                          src={service.image || "/placeholder.svg"}
-                          width={600}
-                          height={400}
-                          alt={service.title}
-                          className="w-full h-auto"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/20 to-transparent mix-blend-overlay" />
+                      <div className="md:hidden relative rounded-2xl overflow-hidden shadow-xl shadow-violet-600/10 border border-violet-200 dark:border-violet-800/30 max-w-[468px] w-full mx-auto">
+                        <div className="relative aspect-[3/2]">
+                          <Image
+                            src={service.image || "/placeholder.svg"}
+                            fill
+                            alt={service.title}
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/20 to-transparent mix-blend-overlay" />
+                        </div>
                       </div>
                     </div>
 
@@ -252,20 +264,21 @@ export default function Services() {
                   </div>
 
                   <div className="relative hidden md:block">
-                    <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-violet-600/10 border border-violet-200 dark:border-violet-800/30">
-                      <Image
-                        src={service.image || "/placeholder.svg"}
-                        width={600}
-                        height={400}
-                        alt={service.title}
-                        className="w-full h-auto"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/20 to-transparent mix-blend-overlay" />
+                    <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-violet-600/10 border border-violet-200 dark:border-violet-800/30 max-w-[468px] w-full ml-auto">
+                      <div className="relative aspect-[3/2]">
+                        <Image
+                          src={service.image || "/placeholder.svg"}
+                          fill
+                          alt={service.title}
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/20 to-transparent mix-blend-overlay" />
+                      </div>
                     </div>
 
                     {/* Decorative Elements */}
-                    <div className="absolute -z-10 -bottom-6 -right-6 w-32 h-32 rounded-full bg-violet-100 dark:bg-violet-900/20" />
-                    <div className="absolute -z-10 -top-6 -left-6 w-24 h-24 rounded-full bg-purple-100 dark:bg-purple-900/20" />
+                    <div className="absolute -z-10 -bottom-6 -right-6 w-24 h-24 rounded-full bg-violet-100 dark:bg-violet-900/20" />
+                    <div className="absolute -z-10 -top-6 -left-6 w-20 h-20 rounded-full bg-purple-100 dark:bg-purple-900/20" />
                   </div>
                 </motion.div>
               </AnimatePresence>
